@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import ReactECharts from "echarts-for-react";
 import { Button } from "@/components/ui/button";
 import { appleData1d, appleData5d } from "@/global/constants";
@@ -9,44 +9,51 @@ import CompanyDetails from "./CompanyDetailsSection";
 const Chart1 = () => {
   const [activeRange, setActiveRange] = React.useState("1m");
   const ranges = ["5d", "1m", "6m", "ytd", "1y", "5y", "all"];
-  const chartRef = React.useRef(null);
-
+  const chartRef = useRef<ReactECharts | null>(null);
   const handleZoomIn = () => {
-    const chart = chartRef.current.getEchartsInstance();
-    chart.dispatchAction({
-      type: "dataZoom",
-      start: 10,
-      end: 60,
-    });
+    if (chartRef.current) {
+      const chart = chartRef.current.getEchartsInstance();
+      chart.dispatchAction({
+        type: "dataZoom",
+        start: 10,
+        end: 60,
+      });
+    }
   };
 
   const handleResetZoom = () => {
-    const chart = chartRef.current.getEchartsInstance();
-    chart.dispatchAction({
-      type: "dataZoom",
-      start: 0,
-      end: 100,
-    });
+    if (chartRef.current) {
+      const chart = chartRef.current.getEchartsInstance();
+      chart.dispatchAction({
+        type: "dataZoom",
+        start: 0,
+        end: 100,
+      });
+    }
   };
 
   const handleRestore = () => {
-    const chart = chartRef.current.getEchartsInstance();
-    chart.dispatchAction({
-      type: "restore",
-    });
+    if (chartRef.current) {
+      const chart = chartRef.current.getEchartsInstance();
+      chart.dispatchAction({
+        type: "restore",
+      });
+    }
   };
 
   const handleSaveImage = () => {
-    const chart = chartRef.current.getEchartsInstance();
-    const dataURL = chart.getDataURL({
-      type: "png",
-      pixelRatio: 2,
-      backgroundColor: "#fff",
-    });
-    const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = "chart.png";
-    link.click();
+    if (chartRef.current) {
+      const chart = chartRef.current.getEchartsInstance();
+      const dataURL = chart.getDataURL({
+        type: "png",
+        pixelRatio: 2,
+        backgroundColor: "#fff",
+      });
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download = "chart.png";
+      link.click();
+    }
   };
 
   // Prepare data for the chart
@@ -99,10 +106,10 @@ const Chart1 = () => {
   const option = {
     tooltip: {
       trigger: "axis",
-      position: function (pt) {
+      position: function (pt: [number, number]): [number, string] {
         return [pt[0], "10%"];
       },
-      formatter: function (params) {
+      formatter: function (params: { value: [string, number] }[]): string {
         const date = new Date(params[0].value[0]);
         const price = params[0].value[1].toFixed(2);
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}<br/>Price: $${price}`;
@@ -115,7 +122,7 @@ const Chart1 = () => {
       splitNumber: 5,
       axisLabel: {
         align: "bottom",
-        formatter: (value) => {
+        formatter: (value: Date) => {
           const date = new Date(value);
           return `${
             date.getMonth() + 2
@@ -128,8 +135,8 @@ const Chart1 = () => {
       boundaryGap: [0, "100%"],
       position: "right",
       // max: filteredMaxPrice,
-      min: (value) => Math.floor(value.min - 10), // e.g., 10 less than the minimum value
-      max: (value) => Math.ceil(value.max + 10),
+      min: (value: { min: number }) => Math.floor(value.min - 10), // e.g., 10 less than the minimum value
+      max: (value: { max: number }) => Math.ceil(value.max + 10),
       splitLine: {
         show: true,
         lineStyle: {
@@ -139,7 +146,7 @@ const Chart1 = () => {
         },
       },
       axisLabel: {
-        formatter: (value) => {
+        formatter: (value: Date) => {
           const date = new Date(value);
           return `${value}`;
         },

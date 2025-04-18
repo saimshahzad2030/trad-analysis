@@ -5,8 +5,21 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+interface CompanySummaryType {
+  name: string;
+  description: string;
+  website: string;
+  currency?: string;
+  exchangeName?: string;
+  employees: number | string;
+  fiscalYearEnds: string;
+  sector: string;
+  industry: string;
+}
 
-const CompanySummary = ({ companySummary }) => {
+const CompanySummary: React.FC<{ companySummary: CompanySummaryType }> = ({
+  companySummary,
+}) => {
   return (
     <div className="w-full max-w-2xl px-4 py-0 mx-auto   rounded-lg shadow-md   border-[0.1px] border-white">
       <Accordion type="single" collapsible className="text-white">

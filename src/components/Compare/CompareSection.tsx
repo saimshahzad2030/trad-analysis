@@ -3,6 +3,19 @@ import { ChevronDown, ChevronLeft, ChevronUp, Plus, X } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import ReactECharts from "echarts-for-react";
+type Company = {
+  symbol: string;
+  name: string;
+  [key: string]: any; // Add this line to allow dynamic keys
+};
+type CompanyMetricKey =
+  | "pricePerformance"
+  | "margin"
+  | "earnings"
+  | "financials"
+  | "valuation"
+  | "forwardDividendYield";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -79,17 +92,22 @@ const CompareSection = () => {
   const generateChartOption = (key: string) => {
     const series = comparisionMockApi.companies
       .map((company, i) => {
-        const data = company[key]?.chartData;
+        const typedKey = key as CompanyMetricKey;
+        const data = company[typedKey]?.chartData;
         if (!data) return null;
 
         return {
           name: company.name || `Company ${i + 1}`,
           type: "line",
           step: "middle",
-          data: data.map((item) => [
-            item.date,
-            item?.marketCap || item?.value || item?.ratio,
-          ]),
+          data: data.map(
+            (item: {
+              date: Date;
+              marketCap?: number;
+              value?: number;
+              ratio?: number;
+            }) => [item.date, item?.marketCap || item?.value || item?.ratio]
+          ),
           lineStyle: {
             width: 2,
             color: colors[i % colors.length],
@@ -102,7 +120,10 @@ const CompareSection = () => {
       })
       .filter(Boolean); // remove nulls
 
-    const dates = series.length ? series[0].data.map((item) => item[0]) : [];
+    const dates =
+      series.length && series[0] !== null
+        ? (series[0].data as [Date, number][]).map((item) => item[0])
+        : [];
 
     return {
       tooltip: {
@@ -182,6 +203,7 @@ const CompareSection = () => {
       .replace(/([a-z\d])([A-Z])/g, "$1 $2") // Space before caps that follow lowercase/digits
       .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2") // Fix acronyms followed by capitalized words
       .replace(/^./, (char) => char.toUpperCase());
+
   return (
     <div className="w-full p-4 px-8 pt-0 bg-[#13131f] flex flex-col items-start text-white">
       <Button variant={"second"} className="mb-4" onClick={() => router.back()}>
@@ -293,7 +315,7 @@ const CompareSection = () => {
         <TableBody>
           {excludedKeys.map((key, index) => {
             const hasChartData = comparisionMockApi.companies.some(
-              (company) => company[key]?.chartData
+              (company: Company) => company[key]?.chartData
             );
 
             return (
@@ -315,19 +337,19 @@ const CompareSection = () => {
                     </div>
                   </TableCell>
 
-                  {comparisionMockApi.companies.map((company, i) => {
+                  {comparisionMockApi.companies.map((company: Company, i) => {
                     const data = company[key];
                     let displayValue = "--";
 
                     if (typeof data === "string" || typeof data === "number") {
-                      displayValue = data;
+                      displayValue = String(data);
                     } else if (data && typeof data === "object") {
                       if ("value" in data) {
-                        displayValue = data.value;
+                        displayValue = String(data.value);
                       } else if ("ratio" in data) {
-                        displayValue = data.ratio;
+                        displayValue = String(data.ratio);
                       } else if ("marketCap" in data) {
-                        displayValue = data.marketCap;
+                        displayValue = String(data.marketCap);
                       }
                     }
 
@@ -372,7 +394,8 @@ const CompareSection = () => {
       <div className="w-full  py-4">
         <Accordion type="single" collapsible>
           {Object.keys(comparisionMockApi.companies[0]).map((key) => {
-            const sectionData = comparisionMockApi.companies[0][key];
+            const sectionData1: Company[] = comparisionMockApi.companies;
+            let sectionData = sectionData1[0][key];
             const isChartSection =
               typeof sectionData === "object" && sectionData?.chartData;
             if (excludedKeys.includes(key) || isChartSection) return null;
@@ -416,23 +439,17 @@ const CompareSection = () => {
                             </TableCell>
                             <TableCell className="pr-6 text-center">
                               {comparisionMockApi.companies.length == 2
-                                ? comparisionMockApi.companies[1][key][
-                                    metricKey
-                                  ]
+                                ? sectionData1[1][key][metricKey]
                                 : "--"}
                             </TableCell>
                             <TableCell className="pr-6 text-center">
                               {comparisionMockApi.companies.length == 3
-                                ? comparisionMockApi.companies[2][key][
-                                    metricKey
-                                  ]
+                                ? sectionData1[2][key][metricKey]
                                 : "--"}
                             </TableCell>
                             <TableCell className="pr-6 text-center">
                               {comparisionMockApi.companies.length == 4
-                                ? comparisionMockApi.companies[3][key][
-                                    metricKey
-                                  ]
+                                ? sectionData1[3][key][metricKey]
                                 : "--"}
                             </TableCell>
                           </TableRow>
@@ -492,50 +509,3 @@ const CompareSection = () => {
 };
 
 export default CompareSection;
-
-{
-  /* <TableBody>
-{excludedKeys.map((key, index) => {
-  return (
-    <TableRow key={index}>
-      <TableCell className="font-medium text-start pl-6">
-        {formatKey(key.replace(/([A-Z])/g, " $1").trim())}
-      </TableCell>
-
-      {comparisionMockApi.companies.map((company, i) => {
-        const data = company[key];
-
-        let displayValue = "--";
-        if (typeof data === "string" || typeof data === "number") {
-          displayValue = data;
-        } else if (data && typeof data === "object") {
-          if ("value" in data) {
-            displayValue = data.value;
-          } else if ("ratio" in data) {
-            displayValue = data.ratio;
-          } else if ("marketCap" in data) {
-            displayValue = data.marketCap;
-          } else {
-            displayValue = "--";
-          }
-        }
-
-        return (
-          <TableCell key={i} className="pr-6 text-center">
-            {displayValue}
-          </TableCell>
-        );
-      })}
-
-       {Array.from({
-        length: 4 - comparisionMockApi.companies.length,
-      }).map((_, i) => (
-        <TableCell key={`empty-${i}`} className="pr-6 text-center">
-          --
-        </TableCell>
-      ))}
-    </TableRow>
-  );
-})}
-</TableBody> */
-}

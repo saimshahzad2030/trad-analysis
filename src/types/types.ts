@@ -322,3 +322,76 @@ export interface FinancialStatement {
     balanceSheet: BalanceSheet[];
     cashFlowStatement: CashFlowStatement[];
 }
+export type CompanyKey =
+    | "pricePerformance"
+    | "margin"
+    | "earnings"
+    | "financials"
+    | "valuation"
+    | "forwardDividendYield";
+
+export interface Company {
+    symbol: string;
+    name: string;
+    pricePerformance: {
+        "1 Week": string;
+        "3 Months": string;
+        YTD: string;
+        "1 Year": string;
+        chartData?: any; // Replace `any` with the actual chart data structure if available
+    };
+    margin: {
+        operating: string;
+        gross: string;
+        profit: string;
+        chartData?: any;
+    };
+    earnings: {
+        basicEPS: string;
+        epsGrowth1Y: string;
+        chartData?: any;
+    };
+    financials?: {
+        revenueTTM: string;
+        revenueGrowth3Y: string;
+        chartData?: any;
+    };
+    valuation?: {
+        peRatio: string;
+        pbRatio: string;
+        chartData?: any;
+    };
+    forwardDividendYield: {
+        value: string;
+        chartData?: any;
+    };
+    equityReturn: {
+        returnOnAssets: string,
+        returnOnCapital: string,
+    };
+    ownership: {
+        institutional: string,
+    };
+    sector: string;
+    ceo: string;
+    industry: string;
+    marketValue: {
+        marketCap: string,
+        chartData: { date: string, marketCap: number }[],
+    };
+    enterpriseValue: {
+        value: string,
+        chartData: { date: string, value: number }[
+        ]
+    };
+    priceToEarnings: {
+        ratio: string,
+        chartData: { date: string, ratio: number }[
+        ]
+    };
+    dilutedEPS: {
+        value: string,
+        chartData: { date: string, value: number }[
+        ]
+    }
+}

@@ -1,4 +1,4 @@
-import { companyData, historicalDataType } from "@/types/types";
+import { Company, companyData, FinancialStatement, historicalDataType } from "@/types/types";
 
 export const appleData1d: companyData = {
   chart: {
@@ -17607,7 +17607,7 @@ export const valuationMeasures = {
     },
   },
 };
-export const financialStatement = {
+export const financialStatement:FinancialStatement = {
   incomeStatement: [
     {
       date: "September 28, 2024",
@@ -18290,7 +18290,7 @@ export const financialStatement = {
     },
   ],
 };
-export const comparisionMockApi = {
+export const comparisionMockApi:{asOfDate:string,companies:Company[]} = {
   asOfDate: "17 Apr 2025",
   companies: [
     {

@@ -1,10 +1,6 @@
 "use client";
 import React from "react";
-import {
-  appleData1d,
-  financialStatement,
-  valuationMeasures,
-} from "@/global/constants";
+import { appleData1d, financialStatement } from "@/global/constants";
 import {
   Table,
   TableBody,
@@ -33,7 +29,7 @@ const FinancialsSection = () => {
   >(financialStatement.incomeStatement);
 
   const getFieldValues = (
-    fieldPath: (s: IncomeStatement) => string
+    fieldPath: (s: IncomeStatement | BalanceSheet | CashFlowStatement) => string
   ): string[] => {
     return incomeStatements.map(fieldPath);
   };
@@ -41,7 +37,7 @@ const FinancialsSection = () => {
   // Helper to create rows
   const renderRow = (
     label: string,
-    fieldPath: (s: IncomeStatement) => string
+    fieldPath: (s: IncomeStatement | BalanceSheet | CashFlowStatement) => string
   ) => (
     <TableRow key={label} className=" bg-[#13131f]">
       <TableCell className="font-medium">{label}</TableCell>
@@ -57,6 +53,18 @@ const FinancialsSection = () => {
       .replace(/([a-z\d])([A-Z])/g, "$1 $2") // Space before caps that follow lowercase/digits
       .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2") // Fix acronyms followed by capitalized words
       .replace(/^./, (char) => char.toUpperCase());
+  function isCashFlowStatement(s: any): s is CashFlowStatement {
+    return "cashFlowsFromFinancingActivities" in s;
+  }
+  function isIncomeStatement(s: any): s is IncomeStatement {
+    return "revenue" in s;
+  }
+  const isBalanceSheet = (
+    s: IncomeStatement | BalanceSheet | CashFlowStatement
+  ): s is BalanceSheet => {
+    return (s as BalanceSheet).assets !== undefined;
+  };
+
   return (
     <div className="w-full flex flex-row items-start justify-between  px-8">
       <div className="w-9/12 flex flex-col items-center justify-start">
@@ -64,7 +72,9 @@ const FinancialsSection = () => {
           <CompanyDetails />
           <div className="w-full flex flex-row items-center justify-between mt-4">
             <div className="flex flex-row w-10/12">
-              {Object.keys(financialStatement).map((range) => (
+              {(
+                Object.keys(financialStatement) as (keyof FinancialStatement)[]
+              ).map((range) => (
                 <Button
                   key={range}
                   variant="graphTab2"
@@ -170,14 +180,14 @@ const FinancialsSection = () => {
                       Revenue
                     </TableCell>
                   </TableRow>
-                  {renderRow("Total Revenue", (s) => s.revenue.totalRevenue)}
-                  {renderRow(
-                    "Operating Revenue",
-                    (s) => s.revenue.operatingRevenue
+                  {renderRow("Total Revenue", (s) =>
+                    isIncomeStatement(s) ? s.revenue.totalRevenue : ""
                   )}
-                  {renderRow(
-                    "Non-Operating Revenue",
-                    (s) => s.revenue.nonOperatingRevenue
+                  {renderRow("Operating Revenue", (s) =>
+                    isIncomeStatement(s) ? s.revenue.operatingRevenue : ""
+                  )}
+                  {renderRow("Non-Operating Revenue", (s) =>
+                    isIncomeStatement(s) ? s.revenue.nonOperatingRevenue : ""
                   )}
 
                   {/* Cost of Revenue */}
@@ -189,9 +199,8 @@ const FinancialsSection = () => {
                       Cost of Revenue
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Cost of Revenue",
-                    (s) => s.costOfRevenue.costOfRevenue
+                  {renderRow("Cost of Revenue", (s) =>
+                    isIncomeStatement(s) ? s.costOfRevenue.costOfRevenue : ""
                   )}
 
                   {/* Gross Profit */}
@@ -203,7 +212,9 @@ const FinancialsSection = () => {
                       Gross Profit
                     </TableCell>
                   </TableRow>
-                  {renderRow("Gross Profit", (s) => s.grossProfit.grossProfit)}
+                  {renderRow("Gross Profit", (s) =>
+                    isIncomeStatement(s) ? s.grossProfit.grossProfit : ""
+                  )}
 
                   {/* Operating Expenses */}
                   <TableRow>
@@ -214,21 +225,28 @@ const FinancialsSection = () => {
                       Operating Expenses
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "R&D",
-                    (s) => s.operatingExpenses.researchAndDevelopment
+                  {renderRow("R&D", (s) =>
+                    isIncomeStatement(s)
+                      ? s.operatingExpenses.researchAndDevelopment
+                      : ""
                   )}
-                  {renderRow(
-                    "SG&A",
-                    (s) => s.operatingExpenses.sellingGeneralAndAdministrative
+
+                  {renderRow("SG&A", (s) =>
+                    isIncomeStatement(s)
+                      ? s.operatingExpenses.sellingGeneralAndAdministrative
+                      : ""
                   )}
-                  {renderRow(
-                    "Other Op. Expenses",
-                    (s) => s.operatingExpenses.otherOperatingExpenses
+
+                  {renderRow("Other Op. Expenses", (s) =>
+                    isIncomeStatement(s)
+                      ? s.operatingExpenses.otherOperatingExpenses
+                      : ""
                   )}
-                  {renderRow(
-                    "Total Op. Expenses",
-                    (s) => s.operatingExpenses.totalOperatingExpenses
+
+                  {renderRow("Total Op. Expenses", (s) =>
+                    isIncomeStatement(s)
+                      ? s.operatingExpenses.totalOperatingExpenses
+                      : ""
                   )}
 
                   {/* And so on for other sections... */}
@@ -255,29 +273,38 @@ const FinancialsSection = () => {
                       Current Assets
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Cash & Cash Equivalents",
-                    (s) => s.assets.currentAssets.cashAndCashEquivalents
+                  {renderRow("Cash & Cash Equivalents", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.currentAssets.cashAndCashEquivalents
+                      : ""
                   )}
-                  {renderRow(
-                    "Short-Term Investments",
-                    (s) => s.assets.currentAssets.shortTermInvestments
+
+                  {renderRow("Short-Term Investments", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.currentAssets.shortTermInvestments
+                      : ""
                   )}
-                  {renderRow(
-                    "Accounts Receivable",
-                    (s) => s.assets.currentAssets.accountsReceivable
+
+                  {renderRow("Accounts Receivable", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.currentAssets.accountsReceivable
+                      : ""
                   )}
-                  {renderRow(
-                    "Inventory",
-                    (s) => s.assets.currentAssets.inventory
+
+                  {renderRow("Inventory", (s) =>
+                    isBalanceSheet(s) ? s.assets.currentAssets.inventory : ""
                   )}
-                  {renderRow(
-                    "Other Current Assets",
-                    (s) => s.assets.currentAssets.otherCurrentAssets
+
+                  {renderRow("Other Current Assets", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.currentAssets.otherCurrentAssets
+                      : ""
                   )}
-                  {renderRow(
-                    "Total Current Assets",
-                    (s) => s.assets.currentAssets.totalCurrentAssets
+
+                  {renderRow("Total Current Assets", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.currentAssets.totalCurrentAssets
+                      : ""
                   )}
 
                   {/* Non-Current Assets */}
@@ -289,34 +316,44 @@ const FinancialsSection = () => {
                       Non-Current Assets
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "PPE (Net)",
-                    (s) =>
-                      s.assets.nonCurrentAssets.propertyPlantAndEquipmentNet
+                  {renderRow("PPE (Net)", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.nonCurrentAssets.propertyPlantAndEquipmentNet
+                      : ""
                   )}
-                  {renderRow(
-                    "Goodwill",
-                    (s) => s.assets.nonCurrentAssets.goodwill
+
+                  {renderRow("Goodwill", (s) =>
+                    isBalanceSheet(s) ? s.assets.nonCurrentAssets.goodwill : ""
                   )}
-                  {renderRow(
-                    "Intangible Assets",
-                    (s) => s.assets.nonCurrentAssets.intangibleAssets
+
+                  {renderRow("Intangible Assets", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.nonCurrentAssets.intangibleAssets
+                      : ""
                   )}
-                  {renderRow(
-                    "Long-Term Investments",
-                    (s) => s.assets.nonCurrentAssets.longTermInvestments
+
+                  {renderRow("Long-Term Investments", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.nonCurrentAssets.longTermInvestments
+                      : ""
                   )}
-                  {renderRow(
-                    "Other Non-Current Assets",
-                    (s) => s.assets.nonCurrentAssets.otherNonCurrentAssets
+
+                  {renderRow("Other Non-Current Assets", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.nonCurrentAssets.otherNonCurrentAssets
+                      : ""
                   )}
-                  {renderRow(
-                    "Total Non-Current Assets",
-                    (s) => s.assets.nonCurrentAssets.totalNonCurrentAssets
+
+                  {renderRow("Total Non-Current Assets", (s) =>
+                    isBalanceSheet(s)
+                      ? s.assets.nonCurrentAssets.totalNonCurrentAssets
+                      : ""
                   )}
 
                   {/* Total Assets */}
-                  {renderRow("Total Assets", (s) => s.assets.totalAssets)}
+                  {renderRow("Total Assets", (s) =>
+                    isBalanceSheet(s) ? s.assets.totalAssets : ""
+                  )}
 
                   {/* Liabilities */}
                   <TableRow>
@@ -337,35 +374,39 @@ const FinancialsSection = () => {
                       Current Liabilities
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Accounts Payable",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.currentLiabilities
-                        .accountsPayable
+                  {renderRow("Accounts Payable", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.currentLiabilities
+                          .accountsPayable
+                      : ""
                   )}
-                  {renderRow(
-                    "Short-Term Debt",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.currentLiabilities
-                        .shortTermDebt
+
+                  {renderRow("Short-Term Debt", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.currentLiabilities
+                          .shortTermDebt
+                      : ""
                   )}
-                  {renderRow(
-                    "Deferred Revenue",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.currentLiabilities
-                        .deferredRevenue
+
+                  {renderRow("Deferred Revenue", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.currentLiabilities
+                          .deferredRevenue
+                      : ""
                   )}
-                  {renderRow(
-                    "Other Current Liabilities",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.currentLiabilities
-                        .otherCurrentLiabilities
+
+                  {renderRow("Other Current Liabilities", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.currentLiabilities
+                          .otherCurrentLiabilities
+                      : ""
                   )}
-                  {renderRow(
-                    "Total Current Liabilities",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.currentLiabilities
-                        .totalCurrentLiabilities
+
+                  {renderRow("Total Current Liabilities", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.currentLiabilities
+                          .totalCurrentLiabilities
+                      : ""
                   )}
 
                   {/* Non-Current Liabilities */}
@@ -377,35 +418,39 @@ const FinancialsSection = () => {
                       Non-Current Liabilities
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Long-Term Debt",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
-                        .longTermDebt
+                  {renderRow("Long-Term Debt", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
+                          .longTermDebt
+                      : ""
                   )}
-                  {renderRow(
-                    "Deferred Tax Liabilities",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
-                        .deferredTaxLiabilities
+
+                  {renderRow("Deferred Tax Liabilities", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
+                          .deferredTaxLiabilities
+                      : ""
                   )}
-                  {renderRow(
-                    "Other Non-Current Liabilities",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
-                        .otherNonCurrentLiabilities
+
+                  {renderRow("Other Non-Current Liabilities", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
+                          .otherNonCurrentLiabilities
+                      : ""
                   )}
-                  {renderRow(
-                    "Total Non-Current Liabilities",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
-                        .totalNonCurrentLiabilities
+
+                  {renderRow("Total Non-Current Liabilities", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.nonCurrentLiabilities
+                          .totalNonCurrentLiabilities
+                      : ""
                   )}
 
                   {/* Total Liabilities */}
-                  {renderRow(
-                    "Total Liabilities",
-                    (s) => s.liabilitiesAndShareholdersEquity.totalLiabilities
+                  {renderRow("Total Liabilities", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.totalLiabilities
+                      : ""
                   )}
 
                   {/* Shareholders' Equity */}
@@ -417,37 +462,40 @@ const FinancialsSection = () => {
                       Shareholders' Equity
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Common Stock",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.shareholdersEquity
-                        .commonStock
+                  {renderRow("Common Stock", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.shareholdersEquity
+                          .commonStock
+                      : ""
                   )}
-                  {renderRow(
-                    "Retained Earnings",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.shareholdersEquity
-                        .retainedEarnings
+
+                  {renderRow("Retained Earnings", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.shareholdersEquity
+                          .retainedEarnings
+                      : ""
                   )}
-                  {renderRow(
-                    "Accum. Other Comp. Income",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.shareholdersEquity
-                        .accumulatedOtherComprehensiveIncome
+
+                  {renderRow("Accum. Other Comp. Income", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.shareholdersEquity
+                          .accumulatedOtherComprehensiveIncome
+                      : ""
                   )}
-                  {renderRow(
-                    "Total Shareholders' Equity",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity.shareholdersEquity
-                        .totalShareholdersEquity
+
+                  {renderRow("Total Shareholders' Equity", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity.shareholdersEquity
+                          .totalShareholdersEquity
+                      : ""
                   )}
 
                   {/* Total Liabilities & Shareholders' Equity */}
-                  {renderRow(
-                    "Total Liabilities & Equity",
-                    (s) =>
-                      s.liabilitiesAndShareholdersEquity
-                        .totalLiabilitiesAndShareholdersEquity
+                  {renderRow("Total Liabilities & Equity", (s) =>
+                    isBalanceSheet(s)
+                      ? s.liabilitiesAndShareholdersEquity
+                          .totalLiabilitiesAndShareholdersEquity
+                      : ""
                   )}
                 </TableBody>
               )}
@@ -462,10 +510,12 @@ const FinancialsSection = () => {
                       Cash Flows from Operating Activities
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Net Income",
-                    (s) => s.cashFlowsFromOperatingActivities.netIncome
-                  )}
+                  {renderRow("Net Income", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities.netIncome;
+                    }
+                    return "";
+                  })}
 
                   {/* Adjustments to Reconcile Net Income */}
                   <TableRow>
@@ -476,27 +526,30 @@ const FinancialsSection = () => {
                       Adjustments to Reconcile Net Income
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Depreciation & Amortization",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                  {renderRow("Depreciation & Amortization", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
-                        .depreciationAndAmortization
-                  )}
-                  {renderRow(
-                    "Deferred Income Tax",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                        .depreciationAndAmortization;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Deferred Income Tax", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
-                        .deferredIncomeTax
-                  )}
-                  {renderRow(
-                    "Stock-Based Compensation",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                        .deferredIncomeTax;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Stock-Based Compensation", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
-                        .stockBasedCompensation
-                  )}
+                        .stockBasedCompensation;
+                    }
+                    return "";
+                  })}
 
                   {/* Changes in Operating Assets and Liabilities */}
                   <TableRow>
@@ -507,49 +560,58 @@ const FinancialsSection = () => {
                       Changes in Operating Assets and Liabilities
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Accounts Receivable",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                  {renderRow("Accounts Receivable", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
                         .changesInOperatingAssetsAndLiabilities
-                        .accountsReceivable
-                  )}
-                  {renderRow(
-                    "Inventory",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                        .accountsReceivable;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Inventory", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
-                        .changesInOperatingAssetsAndLiabilities.inventory
-                  )}
-                  {renderRow(
-                    "Accounts Payable",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                        .changesInOperatingAssetsAndLiabilities.inventory;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Accounts Payable", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
-                        .changesInOperatingAssetsAndLiabilities.accountsPayable
-                  )}
-                  {renderRow(
-                    "Other Working Capital Changes",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                        .changesInOperatingAssetsAndLiabilities.accountsPayable;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Other Working Capital Changes", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
                         .changesInOperatingAssetsAndLiabilities
-                        .otherWorkingCapitalChanges
-                  )}
+                        .otherWorkingCapitalChanges;
+                    }
+                    return "";
+                  })}
 
-                  {renderRow(
-                    "Other Non-Cash Items",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
+                  {renderRow("Other Non-Cash Items", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromOperatingActivities
                         .adjustmentsToReconcileNetIncomeToNetCashProvidedByOperatingActivities
-                        .otherNonCashItems
-                  )}
+                        .otherNonCashItems;
+                    }
+                    return "";
+                  })}
                   {renderRow(
                     "Net Cash Provided by Operating Activities",
-                    (s) =>
-                      s.cashFlowsFromOperatingActivities
-                        .netCashProvidedByOperatingActivities
+                    (s) => {
+                      if ("cashFlowsFromOperatingActivities" in s) {
+                        return s.cashFlowsFromOperatingActivities
+                          .netCashProvidedByOperatingActivities;
+                      }
+                      return "";
+                    }
                   )}
 
                   {/* Cash Flows from Investing Activities */}
@@ -563,36 +625,50 @@ const FinancialsSection = () => {
                   </TableRow>
                   {renderRow(
                     "Investments in Property, Plant & Equipment",
-                    (s) =>
-                      s.cashFlowsFromInvestingActivities
-                        .investmentsInPropertyPlantAndEquipment
+                    (s) => {
+                      if ("cashFlowsFromOperatingActivities" in s) {
+                        return s.cashFlowsFromInvestingActivities
+                          .investmentsInPropertyPlantAndEquipment;
+                      }
+                      return "";
+                    }
                   )}
-                  {renderRow(
-                    "Acquisitions (Net)",
-                    (s) => s.cashFlowsFromInvestingActivities.acquisitionsNet
-                  )}
-                  {renderRow(
-                    "Purchases of Investments",
-                    (s) =>
-                      s.cashFlowsFromInvestingActivities.purchasesOfInvestments
-                  )}
-                  {renderRow(
-                    "Sales/Maturities of Investments",
-                    (s) =>
-                      s.cashFlowsFromInvestingActivities
-                        .salesMaturitiesOfInvestments
-                  )}
-                  {renderRow(
-                    "Other Investing Activities",
-                    (s) =>
-                      s.cashFlowsFromInvestingActivities
-                        .otherInvestingActivities
-                  )}
+                  {renderRow("Acquisitions (Net)", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromInvestingActivities.acquisitionsNet;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Purchases of Investments", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromInvestingActivities
+                        .purchasesOfInvestments;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Sales/Maturities of Investments", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromInvestingActivities
+                        .salesMaturitiesOfInvestments;
+                    }
+                    return "";
+                  })}
+                  {renderRow("Other Investing Activities", (s) => {
+                    if ("cashFlowsFromOperatingActivities" in s) {
+                      return s.cashFlowsFromInvestingActivities
+                        .otherInvestingActivities;
+                    }
+                    return "";
+                  })}
                   {renderRow(
                     "Net Cash Provided by Investing Activities",
-                    (s) =>
-                      s.cashFlowsFromInvestingActivities
-                        .netCashProvidedByInvestingActivities
+                    (s) => {
+                      if ("cashFlowsFromOperatingActivities" in s) {
+                        return s.cashFlowsFromInvestingActivities
+                          .netCashProvidedByInvestingActivities;
+                      }
+                      return "";
+                    }
                   )}
 
                   {/* Cash Flows from Financing Activities */}
@@ -604,32 +680,33 @@ const FinancialsSection = () => {
                       Cash Flows from Financing Activities
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Debt Issuance/Repayment",
-                    (s) =>
-                      s.cashFlowsFromFinancingActivities.debtIssuanceRepayment
+                  {renderRow("Debt Issuance/Repayment", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.cashFlowsFromFinancingActivities.debtIssuanceRepayment
+                      : ""
                   )}
-                  {renderRow(
-                    "Common Stock Issuance/Repurchase",
-                    (s) =>
-                      s.cashFlowsFromFinancingActivities
-                        .commonStockIssuanceRepurchase
+                  {renderRow("Common Stock Issuance/Repurchase", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.cashFlowsFromFinancingActivities
+                          .commonStockIssuanceRepurchase
+                      : ""
                   )}
-                  {renderRow(
-                    "Dividends Paid",
-                    (s) => s.cashFlowsFromFinancingActivities.dividendsPaid
+                  {renderRow("Dividends Paid", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.cashFlowsFromFinancingActivities.dividendsPaid
+                      : ""
                   )}
-                  {renderRow(
-                    "Other Financing Activities",
-                    (s) =>
-                      s.cashFlowsFromFinancingActivities
-                        .otherFinancingActivities
+                  {renderRow("Other Financing Activities", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.cashFlowsFromFinancingActivities
+                          .otherFinancingActivities
+                      : ""
                   )}
-                  {renderRow(
-                    "Net Cash Provided by Financing Activities",
-                    (s) =>
-                      s.cashFlowsFromFinancingActivities
-                        .netCashProvidedByFinancingActivities
+                  {renderRow("Net Cash Provided by Financing Activities", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.cashFlowsFromFinancingActivities
+                          .netCashProvidedByFinancingActivities
+                      : ""
                   )}
 
                   {/* Other Cash Flow Items */}
@@ -641,22 +718,26 @@ const FinancialsSection = () => {
                       Other Cash Flow Items
                     </TableCell>
                   </TableRow>
-                  {renderRow(
-                    "Effect of Exchange Rate Changes on Cash",
-                    (s) =>
-                      s.otherCashFlowItems.effectOfExchangeRateChangesOnCash
+
+                  {renderRow("Effect of Exchange Rate Changes on Cash", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.otherCashFlowItems.effectOfExchangeRateChangesOnCash
+                      : ""
                   )}
-                  {renderRow(
-                    "Net Change in Cash",
-                    (s) => s.otherCashFlowItems.netChangeInCash
+                  {renderRow("Net Change in Cash", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.otherCashFlowItems.netChangeInCash
+                      : ""
                   )}
-                  {renderRow(
-                    "Cash at Beginning of Period",
-                    (s) => s.otherCashFlowItems.cashAtBeginningOfPeriod
+                  {renderRow("Cash at Beginning of Period", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.otherCashFlowItems.cashAtBeginningOfPeriod
+                      : ""
                   )}
-                  {renderRow(
-                    "Cash at End of Period",
-                    (s) => s.otherCashFlowItems.cashAtEndOfPeriod
+                  {renderRow("Cash at End of Period", (s) =>
+                    isCashFlowStatement(s)
+                      ? s.otherCashFlowItems.cashAtEndOfPeriod
+                      : ""
                   )}
                 </TableBody>
               )}
