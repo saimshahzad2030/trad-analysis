@@ -395,3 +395,103 @@ export interface Company {
         ]
     }
 }
+export type GainerStock = {
+    symbol: string;
+    price: number;
+    name: string;
+    change: number;
+    changesPercentage: string;
+    exchange: string;
+};
+
+export type TopGainersResponse = {
+    top_gainers: {
+        result: GainerStock[];
+        error: string | null;
+    };
+};
+export type TopLosersResponse = {
+    top_losers: {
+        result: GainerStock[];
+        error: string | null;
+    };
+};
+export type TopTradedStockResponse = {
+    top_traded_stocks: {
+        result: GainerStock[];
+        error: string | null;
+    };
+};
+export type dailyMarketSectorPerformanceResponse = {
+    daily_market_sector_performance: {
+        result: {
+            date: string,
+            sector: string,
+            exchange: string,
+            averageChange: string
+        }[]
+        error: string | null;
+    }
+}
+export type dailyIndustoryPerformanceResponse = {
+    daily_industry_performance: {
+        result: {
+            date: string,
+            industry: string,
+            exchange: string,
+            averageChange: string
+        }[]
+        error: string | null;
+    }
+}
+export type TopStock = {
+    symbol: string;
+    companyName: string;
+    marketCap: number;
+    sector: string;
+    industry: string;
+    beta: number;
+    price: number;
+    lastAnnualDividend: number;
+    volume: number;
+    exchange: string;
+    exchangeShortName: string;
+    country: string;
+    isEtf: boolean;
+    isFund: boolean;
+    isActivelyTrading: boolean;
+};
+
+export type TopStocksResponse = {
+    top_stocks: {
+        result: TopStock[];
+    };
+    error: string | null;
+};
+
+export type EmaChartPoint = {
+    date: string;
+    open: string;
+    high: string;
+    low: string;
+    close: string;
+    volume: number;
+    ema: string;
+};
+
+export type EmaChartData = {
+    "ema-chart-data": {
+        result: EmaChartPoint[];
+        error: null | string
+    };
+};
+
+export type EPSProjectionData = {
+    eps_projection: {
+        result: {
+            year: string;
+            epsAvg: number;
+        }[];
+        error: null;
+    };
+};

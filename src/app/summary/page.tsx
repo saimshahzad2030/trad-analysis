@@ -4,16 +4,16 @@ import Chart1 from "@/components/Chart/Chart1";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Link from "next/link";
 import NavSecond from "@/components/Navbar/NavSecond";
-import Landing from "@/components/Landing/Landing";
-import InvestmentIdeas from "@/components/InvestmentIdeas/InvestmentIdeas";
-import HomeCharts from "@/components/HomeCharts/HomeCharts";
 export default function Home() {
   return (
     <div className="flex flex-col items-center container mx-auto  w-full">
       <Navbar />
-      <Landing />
-      <InvestmentIdeas />
-      <HomeCharts />
+
+      <div className="relative flex flex-col    w-full overflow-x-hidden  pt-40 bg-[#13131f]">
+        <NavSecond />
+        <Chart1 />
+        
+      </div>
     </div>
   );
 }

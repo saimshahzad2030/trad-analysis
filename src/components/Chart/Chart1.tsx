@@ -6,6 +6,10 @@ import { appleData1d, appleData5d } from "@/global/constants";
 import { ZoomIn, RefreshCcw, Undo2, Download } from "lucide-react";
 import CompanySummary from "./CompanySummary";
 import CompanyDetails from "./CompanyDetailsSection";
+import OwnershipStructure from "../SummaryCharts/OwnershipStructure";
+import DebtCourageChart from "../SummaryCharts/DebtCourageChart";
+import DebtAnalysis from "../SummaryCharts/DebtAnalysisChart";
+import EPSProjectionChart from "../SummaryCharts/EpsProjectionChart";
 const Chart1 = () => {
   const [activeRange, setActiveRange] = React.useState("1m");
   const ranges = ["5d", "1m", "6m", "ytd", "1y", "5y", "all"];
@@ -287,7 +291,20 @@ const Chart1 = () => {
             employees: appleData1d.chart.result[0].meta.fullTimeEmployees,
           }}
         />
+        <div className="grid grid-cols-4 w-full gap-4 mt-8">
+          <div className="w-full col-span-4">
+            <EPSProjectionChart />
+          </div>
+          <div className="col-span-2 w-full">
+            <DebtAnalysis />
+          </div>
+          <div className="col-span-2 w-full">
+            <DebtCourageChart />
+          </div>
+          <OwnershipStructure />
+        </div>
       </div>
+
       <div className="w-3/12 flex flex-col items-center pl-4 py-4 text-white">
         <div className=" pb-1 w-full flex flex-row items-center justify-between text-xs border border-t-0 border-r-0 border-l-0 border-b-[var(--variant-5)] border-dashed">
           <p>Previous close</p>

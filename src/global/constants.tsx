@@ -1,4 +1,15 @@
-import { Company, companyData, FinancialStatement, historicalDataType } from "@/types/types";
+import {
+  Company,
+  companyData,
+  dailyIndustoryPerformanceResponse,
+  dailyMarketSectorPerformanceResponse,
+  FinancialStatement,
+  historicalDataType,
+  TopGainersResponse,
+  TopLosersResponse,
+  TopStocksResponse,
+  TopTradedStockResponse, 
+} from "@/types/types";
 
 export const appleData1d: companyData = {
   chart: {
@@ -17607,7 +17618,7 @@ export const valuationMeasures = {
     },
   },
 };
-export const financialStatement:FinancialStatement = {
+export const financialStatement: FinancialStatement = {
   incomeStatement: [
     {
       date: "September 28, 2024",
@@ -18290,7 +18301,7 @@ export const financialStatement:FinancialStatement = {
     },
   ],
 };
-export const comparisionMockApi:{asOfDate:string,companies:Company[]} = {
+export const comparisionMockApi: { asOfDate: string; companies: Company[] } = {
   asOfDate: "17 Apr 2025",
   companies: [
     {
@@ -18463,3 +18474,1118 @@ export const comparisionMockApi:{asOfDate:string,companies:Company[]} = {
     },
   ],
 };
+
+export const topGainers:TopGainersResponse = {
+  top_gainers: {
+    result: [
+      {
+        symbol: "BMRA",
+        price: 3.8408,
+        name: "Biomerica, Inc.",
+        change: 3.4207,
+        changesPercentage: "814.259%",
+        exchange: "NASDAQ",
+      },
+      {
+        symbol: "MSGM",
+        price: 2.75,
+        name: "Motorsport Games Inc.",
+        change: 1.63,
+        changesPercentage: "145.536%",
+        exchange: "NASDAQ",
+      },
+      {
+        symbol: "SXTC",
+        price: 2.16,
+        name: "China SXT Pharmaceuticals, Inc.",
+        change: 1.1711,
+        changesPercentage: "118.425%",
+        exchange: "NASDAQ",
+      },
+      {
+        symbol: "ADGM",
+        price: 1.78,
+        name: "Adagio Medical Holdings, Inc.",
+        change: 0.8568,
+        changesPercentage: "92.808%",
+        exchange: "NASDAQ",
+      },
+      {
+        symbol: "PNBK",
+        price: 3.28,
+        name: "Patriot National Bancorp, Inc.",
+        change: 1.39,
+        changesPercentage: "73.545%",
+        exchange: "NASDAQ",
+      },
+    ],
+    error: null,
+  },
+};
+export const topLosers:TopLosersResponse={
+  "top_losers": {
+    "result": [
+      {
+        "symbol": "LXEH",
+        "price": 6.84,
+        "name": "Lixiang Education Holding Co., Ltd.",
+        "change": -16.15,
+        "changesPercentage": "-70.248%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "CLIK",
+        "price": 0.355,
+        "name": "Click Holdings Limited",
+        "change": -0.3301,
+        "changesPercentage": "-48.183%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "IOTR",
+        "price": 1.15,
+        "name": "iOThree Limited Ordinary Shares",
+        "change": -0.7,
+        "changesPercentage": "-37.838%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "SISI",
+        "price": 0.575,
+        "name": "Shineco, Inc.",
+        "change": -0.3197,
+        "changesPercentage": "-35.733%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "CWD",
+        "price": 0.3,
+        "name": "CaliberCos Inc.",
+        "change": -0.151,
+        "changesPercentage": "-33.481%",
+        "exchange": "NASDAQ"
+      }
+    ],
+    "error": null
+  }
+}
+export const topTradedStocks:TopTradedStockResponse={
+  "top_traded_stocks": {
+    "result": [
+      {
+        "symbol": "DMN",
+        "price": 0.0035,
+        "name": "Damon Inc. Common Stock",
+        "change": 0.0004,
+        "changesPercentage": "12.903%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "STSS",
+        "price": 0.032,
+        "name": "Sharps Technology, Inc.",
+        "change": 0.0055,
+        "changesPercentage": "20.755%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "SUNE",
+        "price": 0.02,
+        "name": "SUNation Energy Inc.",
+        "change": 0.0004,
+        "changesPercentage": "2.041%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "NVDA",
+        "price": 101.425,
+        "name": "NVIDIA Corporation",
+        "change": -3.065,
+        "changesPercentage": "-2.933%",
+        "exchange": "NASDAQ"
+      },
+      {
+        "symbol": "HTZ",
+        "price": 8.215,
+        "name": "Hertz Global Holdings, Inc.",
+        "change": 2.505,
+        "changesPercentage": "43.870%",
+        "exchange": "NASDAQ"
+      }
+    ],
+    "error": null
+  }
+}
+
+export const dailyMarketSectorPerformance:dailyMarketSectorPerformanceResponse={
+  "daily_market_sector_performance": {
+    "result": [
+      {
+        "date": "2025-04-21",
+        "sector": "Basic Materials",
+        "exchange": "NASDAQ",
+        "averageChange": "0.227%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Communication Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.485%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Consumer Cyclical",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.366%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Consumer Defensive",
+        "exchange": "NASDAQ",
+        "averageChange": "2.061%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Energy",
+        "exchange": "NASDAQ",
+        "averageChange": "2.199%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Financial Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.005%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Healthcare",
+        "exchange": "NASDAQ",
+        "averageChange": "0.311%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Industrials",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.267%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Real Estate",
+        "exchange": "NASDAQ",
+        "averageChange": "0.041%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Technology",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.227%"
+      },
+      {
+        "date": "2025-04-21",
+        "sector": "Utilities",
+        "exchange": "NASDAQ",
+        "averageChange": "0.334%"
+      }
+    ],
+    "error": null
+  }
+}
+export const dailyIndustryPerformance:dailyIndustoryPerformanceResponse={
+  "daily_industry_performance": {
+    "result": [
+      {
+        "date": "2025-04-21",
+        "industry": "Advertising Agencies",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.313%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Aerospace & Defense",
+        "exchange": "NASDAQ",
+        "averageChange": "-2.261%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Agricultural Farm Products",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.193%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Agricultural Inputs",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.727%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Agricultural - Machinery",
+        "exchange": "NASDAQ",
+        "averageChange": "1.306%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Airlines, Airports & Air Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.532%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Apparel - Footwear & Accessories",
+        "exchange": "NASDAQ",
+        "averageChange": "1.794%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Apparel - Manufacturers",
+        "exchange": "NASDAQ",
+        "averageChange": "0.843%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Apparel - Retail",
+        "exchange": "NASDAQ",
+        "averageChange": "0.501%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Auto - Dealerships",
+        "exchange": "NASDAQ",
+        "averageChange": "3.004%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Auto - Manufacturers",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.824%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Auto - Parts",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.536%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Auto - Recreational Vehicles",
+        "exchange": "NASDAQ",
+        "averageChange": "-2.046%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Banks - Regional",
+        "exchange": "NASDAQ",
+        "averageChange": "1.059%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Beverages - Non-Alcoholic",
+        "exchange": "NASDAQ",
+        "averageChange": "2.383%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Beverages - Wineries & Distilleries",
+        "exchange": "NASDAQ",
+        "averageChange": "4.072%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Biotechnology",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.094%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Broadcasting",
+        "exchange": "NASDAQ",
+        "averageChange": "0.529%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Chemicals",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.321%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Chemicals - Specialty",
+        "exchange": "NASDAQ",
+        "averageChange": "2.634%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Coal",
+        "exchange": "NASDAQ",
+        "averageChange": "2.404%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Communication Equipment",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.398%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Computer Hardware",
+        "exchange": "NASDAQ",
+        "averageChange": "0.712%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Conglomerates",
+        "exchange": "NASDAQ",
+        "averageChange": "0.773%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Construction",
+        "exchange": "NASDAQ",
+        "averageChange": "1.435%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Construction Materials",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.910%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Consulting Services",
+        "exchange": "NASDAQ",
+        "averageChange": "0.058%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Consumer Electronics",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.109%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Discount Stores",
+        "exchange": "NASDAQ",
+        "averageChange": "3.360%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Diversified Utilities",
+        "exchange": "NASDAQ",
+        "averageChange": "2.303%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Drug Manufacturers - General",
+        "exchange": "NASDAQ",
+        "averageChange": "0.110%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Drug Manufacturers - Specialty & Generic",
+        "exchange": "NASDAQ",
+        "averageChange": "2.494%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Education & Training Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.822%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Electrical Equipment & Parts",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.080%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Electronic Gaming & Multimedia",
+        "exchange": "NASDAQ",
+        "averageChange": "1.525%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Engineering & Construction",
+        "exchange": "NASDAQ",
+        "averageChange": "0.338%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Entertainment",
+        "exchange": "NASDAQ",
+        "averageChange": "0.455%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Financial - Capital Markets",
+        "exchange": "NASDAQ",
+        "averageChange": "0.105%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Financial - Conglomerates",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.665%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Financial - Credit Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.908%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Financial - Data & Stock Exchanges",
+        "exchange": "NASDAQ",
+        "averageChange": "0.144%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Financial - Mortgages",
+        "exchange": "NASDAQ",
+        "averageChange": "0.065%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Food Distribution",
+        "exchange": "NASDAQ",
+        "averageChange": "1.146%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Furnishings, Fixtures & Appliances",
+        "exchange": "NASDAQ",
+        "averageChange": "1.153%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Gambling, Resorts & Casinos",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.651%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Gold",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.417%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Grocery Stores",
+        "exchange": "NASDAQ",
+        "averageChange": "0.644%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Hardware, Equipment & Parts",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.386%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Home Improvement",
+        "exchange": "NASDAQ",
+        "averageChange": "1.996%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Household & Personal Products",
+        "exchange": "NASDAQ",
+        "averageChange": "1.669%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Industrial - Distribution",
+        "exchange": "NASDAQ",
+        "averageChange": "4.422%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Industrial - Machinery",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.841%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Industrial Materials",
+        "exchange": "NASDAQ",
+        "averageChange": "5.368%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Industrial - Pollution & Treatment Controls",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.493%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Information Technology Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.168%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Insurance - Brokers",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.967%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Insurance - Diversified",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.227%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Insurance - Life",
+        "exchange": "NASDAQ",
+        "averageChange": "1.989%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Insurance - Property & Casualty",
+        "exchange": "NASDAQ",
+        "averageChange": "0.780%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Insurance - Specialty",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.011%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Integrated Freight & Logistics",
+        "exchange": "NASDAQ",
+        "averageChange": "-3.642%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Internet Content & Information",
+        "exchange": "NASDAQ",
+        "averageChange": "-9.997%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Investment - Banking & Investment Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-4.500%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Leisure",
+        "exchange": "NASDAQ",
+        "averageChange": "1.286%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Luxury Goods",
+        "exchange": "NASDAQ",
+        "averageChange": "5.105%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Manufacturing - Metal Fabrication",
+        "exchange": "NASDAQ",
+        "averageChange": "2.061%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Manufacturing - Tools & Accessories",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.261%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Marine Shipping",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.687%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Care Facilities",
+        "exchange": "NASDAQ",
+        "averageChange": "0.158%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Devices",
+        "exchange": "NASDAQ",
+        "averageChange": "2.160%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Diagnostics & Research",
+        "exchange": "NASDAQ",
+        "averageChange": "2.221%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Distribution",
+        "exchange": "NASDAQ",
+        "averageChange": "1.504%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Healthcare Information Services",
+        "exchange": "NASDAQ",
+        "averageChange": "1.928%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Healthcare Plans",
+        "exchange": "NASDAQ",
+        "averageChange": "4.378%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Instruments & Supplies",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.369%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Medical - Pharmaceuticals",
+        "exchange": "NASDAQ",
+        "averageChange": "1.169%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Oil & Gas Equipment & Services",
+        "exchange": "NASDAQ",
+        "averageChange": "0.542%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Oil & Gas Exploration & Production",
+        "exchange": "NASDAQ",
+        "averageChange": "3.562%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Oil & Gas Integrated",
+        "exchange": "NASDAQ",
+        "averageChange": "8.117%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Oil & Gas Midstream",
+        "exchange": "NASDAQ",
+        "averageChange": "2.390%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Oil & Gas Refining & Marketing",
+        "exchange": "NASDAQ",
+        "averageChange": "4.746%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Packaged Foods",
+        "exchange": "NASDAQ",
+        "averageChange": "2.303%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Packaging & Containers",
+        "exchange": "NASDAQ",
+        "averageChange": "2.337%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Paper, Lumber & Forest Products",
+        "exchange": "NASDAQ",
+        "averageChange": "-3.258%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Personal Products & Services",
+        "exchange": "NASDAQ",
+        "averageChange": "1.796%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Publishing",
+        "exchange": "NASDAQ",
+        "averageChange": "-3.982%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Railroads",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.925%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Real Estate - Development",
+        "exchange": "NASDAQ",
+        "averageChange": "1.777%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Real Estate - General",
+        "exchange": "NASDAQ",
+        "averageChange": "0.000%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Real Estate - Services",
+        "exchange": "NASDAQ",
+        "averageChange": "0.276%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Regulated Electric",
+        "exchange": "NASDAQ",
+        "averageChange": "2.473%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Regulated Water",
+        "exchange": "NASDAQ",
+        "averageChange": "3.037%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "REIT - Diversified",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.046%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "REIT - Healthcare Facilities",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.064%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "REIT - Industrial",
+        "exchange": "NASDAQ",
+        "averageChange": "1.230%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "REIT - Mortgage",
+        "exchange": "NASDAQ",
+        "averageChange": "0.698%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "REIT - Retail",
+        "exchange": "NASDAQ",
+        "averageChange": "1.529%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "REIT - Specialty",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.400%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Renewable Utilities",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.095%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Rental & Leasing Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.858%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Residential Construction",
+        "exchange": "NASDAQ",
+        "averageChange": "0.281%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Restaurants",
+        "exchange": "NASDAQ",
+        "averageChange": "-2.027%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Security & Protection Services",
+        "exchange": "NASDAQ",
+        "averageChange": "0.604%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Semiconductors",
+        "exchange": "NASDAQ",
+        "averageChange": "-2.092%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Shell Companies",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.617%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Software - Application",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.559%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Software - Infrastructure",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.415%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Solar",
+        "exchange": "NASDAQ",
+        "averageChange": "2.622%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Specialty Business Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.109%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Specialty Retail",
+        "exchange": "NASDAQ",
+        "averageChange": "1.562%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Staffing & Employment Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.880%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Steel",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.180%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Technology Distributors",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.504%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Telecommunications Services",
+        "exchange": "NASDAQ",
+        "averageChange": "0.772%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Tobacco",
+        "exchange": "NASDAQ",
+        "averageChange": "-1.080%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Travel Lodging",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.402%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Travel Services",
+        "exchange": "NASDAQ",
+        "averageChange": "-0.314%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Trucking",
+        "exchange": "NASDAQ",
+        "averageChange": "3.142%"
+      },
+      {
+        "date": "2025-04-21",
+        "industry": "Waste Management",
+        "exchange": "NASDAQ",
+        "averageChange": "0.399%"
+      }
+    ],
+    "error": null
+  }
+}
+
+export const topStocks:TopStocksResponse={
+  top_stocks:{
+    result:[
+      {
+        "symbol": "AAPL",
+        "companyName": "Apple Inc.",
+        "marketCap": 2901663620680,
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "beta": 1.259,
+        "price": 193.16,
+        "lastAnnualDividend": 1,
+        "volume": 46628147,
+        "exchange": "NASDAQ Global Select",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": false,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "MSFT",
+        "companyName": "Microsoft Corporation",
+        "marketCap": 2669691759488,
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "beta": 1,
+        "price": 359.12,
+        "lastAnnualDividend": 3.16,
+        "volume": 19637770,
+        "exchange": "NASDAQ Global Select",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": false,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "NVDA",
+        "companyName": "NVIDIA Corporation",
+        "marketCap": 2364604000000,
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "beta": 1.958,
+        "price": 96.91,
+        "lastAnnualDividend": 0.04,
+        "volume": 273662940,
+        "exchange": "NASDAQ Global Select",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": false,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "VSMPX",
+        "companyName": "Vanguard Total Stock Mkt Idx Instl Pls",
+        "marketCap": 1954302787387,
+        "sector": "",
+        "industry": "",
+        "beta": 1.02,
+        "price": 230.78,
+        "lastAnnualDividend": 3.426,
+        "volume": 0,
+        "exchange": "Nasdaq",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": true,
+        "isFund": true,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "GOOGL",
+        "companyName": "Alphabet Inc.",
+        "marketCap": 1811911513274,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "beta": 1.035,
+        "price": 147.67,
+        "lastAnnualDividend": 0.8,
+        "volume": 24798373,
+        "exchange": "NASDAQ Global Select",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": false,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "GOOG",
+        "companyName": "Alphabet Inc.",
+        "marketCap": 1812404873687,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "beta": 1.035,
+        "price": 149.86,
+        "lastAnnualDividend": 0.8,
+        "volume": 15701798,
+        "exchange": "NASDAQ Global Select",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": false,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "AMZN",
+        "companyName": "Amazon.com, Inc.",
+        "marketCap": 1775666768000,
+        "sector": "Consumer Cyclical",
+        "industry": "Specialty Retail",
+        "beta": 1.393,
+        "price": 167.32,
+        "lastAnnualDividend": 0,
+        "volume": 47934736,
+        "exchange": "NASDAQ Global Select",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": false,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "VFIAX",
+        "companyName": "Vanguard 500 Index Fd Admiral Shs",
+        "marketCap": 1321620340450,
+        "sector": "",
+        "industry": "",
+        "beta": 1,
+        "price": 476.2,
+        "lastAnnualDividend": 6.9737,
+        "volume": 0,
+        "exchange": "NASDAQ",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": true,
+        "isFund": true,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "META",
+        "companyName": "Meta Platforms, Inc.",
+        "marketCap": 1227304188431,
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "beta": 1.279,
+        "price": 484.66,
+        "lastAnnualDividend": 2.025,
+        "volume": 15682022,
+        "exchange": "NASDAQ Global Select",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": false,
+        "isActivelyTrading": true
+      },
+      {
+        "symbol": "VITSX",
+        "companyName": "Vanguard Total Stock Market Index Fund",
+        "marketCap": 1041764105527,
+        "sector": "Financial Services",
+        "industry": "Asset Management",
+        "beta": 1.02,
+        "price": 123.02,
+        "lastAnnualDividend": 1.826,
+        "volume": 0,
+        "exchange": "NASDAQ",
+        "exchangeShortName": "NASDAQ",
+        "country": "US",
+        "isEtf": false,
+        "isFund": true,
+        "isActivelyTrading": true
+      }
+    ]
+  },
+  error:null
+}

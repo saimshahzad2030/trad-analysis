@@ -21,7 +21,7 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         second:
-          "cursor-pointer text-[var(--variant-4)] bg-[var(--variant-2)]/50 border border-[var(--variant-1)]  hover:border-[var(--variant-3)] rounded-md",
+          " cursor-pointer text-[var(--variant-4)] bg-[#13131f] border border-[var(--variant-1)]  hover:border-[var(--variant-3)] rounded-md",
         graphTab:
           "cursor-pointer text-[var(--variant-4)] bg-[var(--variant-2)]/50 border border-[var(--variant-1)]  hover:border-[var(--variant-3)] rounded-md",
         graphTab2: "cursor-pointer rounded-md",
