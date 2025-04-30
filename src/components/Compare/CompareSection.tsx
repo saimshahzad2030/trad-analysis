@@ -393,7 +393,7 @@ const CompareSection = () => {
       </Table>
       <div className="w-full  py-4">
         <Accordion type="single" collapsible>
-          {Object.keys(comparisionMockApi.companies[0]).map((key) => {
+          {Object.keys(comparisionMockApi.companies[0]).map((key, index) => {
             const sectionData1: Company[] = comparisionMockApi.companies;
             let sectionData = sectionData1[0][key];
             const isChartSection =
@@ -401,7 +401,7 @@ const CompareSection = () => {
             if (excludedKeys.includes(key) || isChartSection) return null;
             const isObject = typeof sectionData === "object"; // Check if the data is an object (e.g., pricePerformance)
             return (
-              <AccordionItem key={key} value={key} className="mt-4">
+              <AccordionItem key={index} value={key} className="mt-4">
                 <AccordionTrigger className="group cursor-pointer flex items-center justify-between  w-4/12 gap-2">
                   <span className="group-hover:text-[var(--variant-4)] font-bold text-2xl duration-300 transition-all">
                     {formatKey(key.replace(/([A-Z])/g, " $1").trim())}

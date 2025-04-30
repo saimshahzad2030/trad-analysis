@@ -21,6 +21,7 @@ import Portfolios from "./Portfolios";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectTrigger } from "@radix-ui/react-select";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 const topCurrencies = [
   { name: "United States Dollar", code: "USD", symbol: "$" },
   { name: "Euro", code: "EUR", symbol: "€" },
@@ -34,6 +35,7 @@ const topCurrencies = [
   { name: "Singapore Dollar", code: "SGD", symbol: "S$" },
 ];
 const Portfolio = () => {
+  const router = useRouter();
   const [tabSelected, setTabSelected] = React.useState<string | null>(null);
   const [selectedCurrency, setSelectedCurrency] = React.useState(
     topCurrencies[0].code
@@ -129,7 +131,9 @@ const Portfolio = () => {
             </p>
             <div className="flex flex-row items-center justify-center w-full mt-8">
               <div
-                onClick={() => setTabSelected("portfolio")}
+                onClick={() => {
+                  router.push("/portfolio/my-portfolios");
+                }}
                 className="transition-colors duration-500 bg-none text-white border border-white hover:text-gray-800 h-[160px] hover:bg-white flex flex-col items-center justify-center w-[48%] p-2 rounded-md cursor-pointer "
               >
                 <GalleryHorizontalEnd className="w-8 h-8" />
@@ -146,9 +150,7 @@ const Portfolio = () => {
           </div>
         </div>
       )}
-      {tabSelected == "portfolio" && (
-        <Portfolios setTabSelected={setTabSelected} />
-      )}
+
       <div className=" text-white py-10 px-4 sm:px-6 lg:px-8 mt-8">
         <h2 className="text-2xl font-semibold text-center mb-8">
           Why Keep a Portfolio on Our Platform?

@@ -15,6 +15,8 @@ const buttonVariants = cva(
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        outline2: "border bg-[#13131f] shadow-xs text-white",
+
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost:
@@ -26,6 +28,8 @@ const buttonVariants = cva(
           "cursor-pointer text-[var(--variant-4)] bg-[var(--variant-2)]/50 border border-[var(--variant-1)]  hover:border-[var(--variant-3)] rounded-md",
         graphTab2: "cursor-pointer rounded-md",
 
+        dropdownButton2:
+          "  cursor-pointer text-gray-400 hover:text-[var(--variant-4)]   border border-gray-400  hover:border-[var(--variant-3)]  w-full flex flex-row items-center justify-between",
         dropdownButton:
           "  cursor-pointer text-gray-400 hover:text-[var(--variant-4)]   border border-gray-400  hover:border-[var(--variant-3)] rounded-full",
       },

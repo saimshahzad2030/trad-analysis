@@ -73,6 +73,19 @@ const NavSecond = () => {
         </Link>
       </div>
       <div className="flex flex-col items-start cursor-pointer group">
+        <Link href="/stock-screening" className="flex flex-row items-center">
+          <h1
+            className={`text-sm ${
+              pathName == "/stock-screening"
+                ? "text-[var(--variant-4)] font-semibold"
+                : " text-current "
+            } group-hover:text-[var(--variant-4)] duration-300 transition-all`}
+          >
+            Stock Screening
+          </h1>
+        </Link>
+      </div>
+      <div className="flex flex-col items-start cursor-pointer group">
         <Link href="/housing" className="flex flex-row items-center">
           <h1
             className={`text-sm ${

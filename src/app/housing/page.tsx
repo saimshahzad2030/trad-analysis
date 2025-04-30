@@ -6,9 +6,7 @@ import { poppins } from "@/fonts/fonts";
 import PremiumContent from "@/components/PremiumComponent/PremiumContent";
 export default function Housing() {
   return (
-    <div
-      className={`flex flex-col items-center container mx-auto  w-full ${poppins.className}`}
-    >
+    <div className={`flex flex-col items-center   w-full ${poppins.className}`}>
       <Navbar />
 
       <div className="relative flex flex-col    w-full overflow-x-hidden  pt-40 bg-[#13131f]">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { inter, poppins } from "@/fonts/fonts";
+import Footer from "@/components/Footer/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Trading App",
@@ -14,7 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>{children}</body>
+      <body className={`${poppins.className} antialiased bg-[#13131f]`}>
+        {children}
+        <Toaster />
+        <Footer />
+      </body>
     </html>
   );
 }

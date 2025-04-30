@@ -20,11 +20,8 @@ const InvestmentIdeas = () => {
             <p className="text-end text-xs font-bold">Last Price</p>
           </div>
           {topGainers.top_gainers.result.map((stock, index) => (
-            <>
-              <div
-                key={index}
-                className="flex flex-row items-center justify-between w-full mt-2 text-[var(--variant-4)] "
-              >
+            <div className="w-full" key={index}>
+              <div className="flex flex-row items-center justify-between w-full mt-2 text-[var(--variant-4)] ">
                 <div className="flex flex-col items-start w-6/12">
                   <p className="text-sm font-bold text-[var(--variant-3)]">
                     {stock.symbol}
@@ -43,7 +40,7 @@ const InvestmentIdeas = () => {
                 </div>
               </div>
               <div className="w-full h-[1px] bg-white mt-2" />
-            </>
+            </div>
           ))}
         </div>
         <div className="flex flex-col items-start bg-none bg-[#0d0d14] w-full p-8 rounded-3xl text-[var(--variant-4)] ">
@@ -58,11 +55,8 @@ const InvestmentIdeas = () => {
             <p className="text-end text-xs font-bold">Last Price</p>
           </div>
           {topLosers.top_losers.result.map((stock, index) => (
-            <>
-              <div
-                key={index}
-                className="flex flex-row items-center justify-between w-full mt-2 text-[var(--variant-4)] "
-              >
+            <div className="w-full" key={index}>
+              <div className="flex flex-row items-center justify-between w-full mt-2 text-[var(--variant-4)] ">
                 <div className="flex flex-col items-start w-6/12">
                   <p className="text-sm font-bold text-[var(--variant-3)]">
                     {stock.symbol}
@@ -81,7 +75,7 @@ const InvestmentIdeas = () => {
                 </div>
               </div>
               <div className="w-full h-[1px] bg-white mt-2" />
-            </>
+            </div>
           ))}
         </div>
         <div className="flex flex-col items-start bg-[#0d0d14] w-full p-8 rounded-3xl text-[var(--variant-4)] ">
@@ -97,11 +91,8 @@ const InvestmentIdeas = () => {
             <p className="text-end text-xs font-bold">Last Price</p>
           </div>
           {topTradedStocks.top_traded_stocks.result.map((stock, index) => (
-            <>
-              <div
-                key={index}
-                className="flex flex-row items-center justify-between w-full mt-2 text-[var(--variant-4)] "
-              >
+            <div className="w-full" key={index}>
+              <div className="flex flex-row items-center justify-between w-full mt-2 text-[var(--variant-4)] ">
                 <div className="flex flex-col items-start w-6/12">
                   <p className="text-sm font-bold text-[var(--variant-3)]">
                     {stock.symbol}
@@ -126,7 +117,7 @@ const InvestmentIdeas = () => {
                 </div>
               </div>
               <div className="w-full h-[1px] bg-white mt-2" />
-            </>
+            </div>
           ))}
         </div>
       </div>

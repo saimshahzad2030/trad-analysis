@@ -495,3 +495,104 @@ export type EPSProjectionData = {
         error: null;
     };
 };
+
+export type Stock = {
+    symbol: string;
+    companyName: string;
+    marketCap: number;
+    sector: string | null;
+    industry: string | null;
+    beta: number;
+    price: number;
+    lastAnnualDividend: number;
+    volume: number;
+    exchange: string;
+    exchangeShortName: string;
+    country: string;
+    isEtf: boolean;
+    isFund: boolean;
+    isActivelyTrading: boolean;
+};
+
+export type StockScreeningResponse = {
+    filtered_data: {
+        result: Stock[];
+    };
+};
+export type WatchList = {
+    symbol: string;              // Symbol of the stock (e.g., "AAPL")
+    lastPrice: number;           // Last price of the stock
+    changePercent: number;       // Change percentage in the last trading day
+    change: number;              // Absolute change in the stock price
+    currency: string;            // Currency (e.g., "USD")
+    marketTime: string;          // Market time (ISO 8601 or readable time format)
+    volume: number;              // Trading volume in the last trading session
+    avgVolume: number;           // Average trading volume over a period (e.g., 30 days)
+    dayRange: string;            // Day's trading range (e.g., "135.00 - 145.00")
+    yearRange: string;           // Year's trading range (e.g., "120.00 - 180.00")
+    dayChart: string;            // Link or path to the day's chart (e.g., image URL or chart ID)
+    marketCap: number;           // Market capitalization of the company
+};
+export type Holdings = {
+    symbol: string;
+    status: "Active" | "Sold";
+    shares: number;
+    lastPrice: number;
+    avgCostPerShare: number;
+    totalCost: number;
+    marketValue: number;
+    totalDividendIncome: number;
+    dayGainPercent: number;
+    dayGainAmount: number;
+    totalGainPercent: number;
+    totalGainAmount: number;
+    realizedGainPercent: number;
+};
+
+export type TransactionType = "buy" | "sell" | "sellshort" | "buytocover";
+
+export interface Transactions {
+    date: Date; // ISO format recommended, e.g. '2025-04-30'
+    type: TransactionType;
+    shares: number;
+    costPerShare: number;
+    commission: number;
+    totalCost: number;
+    realizedGainPercent?: number;
+    realizedGainDollar?: number;
+}
+export interface StockFundamentals {
+    symbol: string;
+    lastPrice: number;
+    marketCap: string; // Could be in billions/trillions (e.g., "2.5T")
+    avgVolume3M: string; // e.g., "25.3M"
+    epsEstNextYr: number;
+    forwardPE: number;
+    divPaymentDate: string; // Use string for simplicity, e.g., "2025-05-10"
+    exDivDate: string;
+    divPerShare: number;
+    fwdAnnDivRate: number;
+    fwdAnnDivYield: number; // as percent, e.g., 1.52 means 1.52%
+    trlAnnDivRate: number;
+    trlAnnDivYield: number;
+    priceToBook: number;
+}
+export interface Portfolio {
+    portfolioName: string,
+    symbols: number;
+    costBasis: string;
+    marketValue: string;
+    dayChange: string;
+    unrealizedGainLoss: string;
+    realizedGainLoss: string;
+}
+export type PortfolioData = {
+    portfolioName: string;
+    symbols: number;
+    costBasis: string; // e.g., "$25,000"
+    marketValue: string; // e.g., "$24,500"
+    dayChange: string; // e.g., "-$500"
+    unrealizedGainLoss: string; // e.g., "-$500"
+    realizedGainLoss: string; // e.g., "+$500"
+    currency: string; // e.g., "USD"
+};

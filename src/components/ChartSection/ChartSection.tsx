@@ -147,6 +147,7 @@ const ChartSection = () => {
                     <div className="grid grid-cols-2 gap-2">
                       {selectedStocks.map((s) => (
                         <button
+                          key={s.symbol}
                           onClick={() => {
                             if (selectedStocks.length != 1) {
                               setSelectedStocks(
