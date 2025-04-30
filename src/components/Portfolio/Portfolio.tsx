@@ -86,7 +86,7 @@ const Portfolio = () => {
               in one place. Start building your portfolio in just two simple
               ways.
             </p>
-            <div className="flex flex-row items-center justify-between w-full mt-8">
+            {/* <div className="flex flex-row items-center justify-between w-full mt-8">
               <div
                 onClick={() => {
                   setTabSelected("import");
@@ -100,24 +100,21 @@ const Portfolio = () => {
                   directly from your device for a seamless start.
                 </p>
               </div>
-              <div className=" bg-gray-400 flex flex-col items-start w-[1px] h-[90%] "></div>
-              <div
-                onClick={() => {
-                  setTabSelected("create");
-                }}
-                className="transition-colors duration-500 bg-none text-white border border-white hover:text-gray-800 h-[160px] hover:bg-white flex flex-col items-center justify-center w-[48%] p-2 rounded-md cursor-pointer "
-              >
-                <Sheet className="w-8 h-8" />
-                <h2 className="font-bold text-xl text-center">
-                  Create Manually
-                </h2>
-                <p className="text-center text-xs mt-2">
-                  Experience our enhanced portfolio tool—now with full support
-                  for Buy, Sell, Short, and Buy to Cover transactions, plus much
-                  more.
-                </p>
-              </div>
+              <div className=" bg-gray-400 flex flex-col items-start w-[1px] h-[90%] "></div> */}
+            <div
+              onClick={() => {
+                setTabSelected("create");
+              }}
+              className="mt-8 transition-colors duration-500 bg-none text-white border border-white hover:text-gray-800 h-[160px] hover:bg-white flex flex-col items-center justify-center w-[48%] p-2 rounded-md cursor-pointer "
+            >
+              <Sheet className="w-8 h-8" />
+              <h2 className="font-bold text-xl text-center">Create Manually</h2>
+              <p className="text-center text-xs mt-2">
+                Experience our enhanced portfolio tool—now with full support for
+                Buy, Sell, Short, and Buy to Cover transactions, plus much more.
+              </p>
             </div>
+            {/* </div> */}
           </div>
           <div className="flex flex-col items-center w-full col-span-1 border border-gray-400 p-4 rounded-md">
             <h1 className="font-bold text-3xl  text-center">
@@ -242,7 +239,8 @@ const Portfolio = () => {
             <div className="flex justify-center gap-4 mt-4">
               <button
                 onClick={closeModal}
-                className="bg-[var(--variant-4)] text-white px-6 py-2 rounded-md cursor-pointer">
+                className="bg-[var(--variant-4)] text-white px-6 py-2 rounded-md cursor-pointer"
+              >
                 Proceed
               </button>
               <button

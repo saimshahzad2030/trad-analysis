@@ -189,7 +189,7 @@ const Portfolios = () => {
               holdings all in one place. Fewer tabs to open, more opportunities
               to take your investing to the next level.
             </p>
-            {!tabSelected && (
+            {/* {!tabSelected && (
               <>
                 <div
                   onClick={() => {
@@ -220,117 +220,117 @@ const Portfolios = () => {
                   </p>
                 </div>
               </>
-            )}
-            {tabSelected && (
-              <>
-                {tabSelected != "import" ? (
-                  <div className="space-y-2 w-full">
-                    <div className="w-full">
-                      <Input
-                        type="text"
-                        placeholder="Enter Portfolio Name"
-                        value={portfolioName}
-                        onChange={(e) => setPortfolioName(e.target.value)}
-                        className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-md"
-                      />
-                    </div>
-                    <div className="w-full">
-                      <DropdownMenu modal={false}>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="dropdownButton2"
-                            className="flex flex-row items-center w-full"
-                          >
-                            {`Currency in ${selectedCurrency}`} <ChevronDown />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="overflow-y-scroll max-h-64 w-80 z-50 bg-white text-black p-4 rounded-lg shadow-lg">
-                          <DropdownMenuSeparator />
-                          <DropdownMenuRadioGroup
-                            value={selectedCurrency}
-                            onValueChange={setSelectedCurrency}
-                          >
-                            {topCurrencies.map((currency) => (
-                              <DropdownMenuRadioItem
-                                className={`${
-                                  selectedCurrency == currency.code
-                                    ? "bg-[var(--variant-4)] text-white"
-                                    : "   hover:border-[var(--variant-4)]"
-                                } cursor-pointer text-gray-600 p-2 ring-0 hover:ring-0 rounded-lg transition-colors duration-500`}
-                                key={currency.code}
-                                value={currency.code}
-                              >
-                                {currency.name} ({currency.symbol})
-                              </DropdownMenuRadioItem>
-                            ))}
-                          </DropdownMenuRadioGroup>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="w-full mt-4">
-                    <label className="text-gray-700   mb-2 text-sm font-medium flex items-center gap-2">
-                      <FileIcon className="w-5 h-5 text-gray-500" />
-                      Upload Excel File
-                    </label>
-                    <input
-                      type="file"
-                      accept=".xlsx, .xls"
-                      onChange={handleFileChange}
+            )} */}
+            {/* {tabSelected && (*/}
+            <>
+              {tabSelected != "import" ? (
+                <div className="space-y-2 w-full">
+                  <div className="w-full">
+                    <Input
+                      type="text"
+                      placeholder="Enter Portfolio Name"
+                      value={portfolioName}
+                      onChange={(e) => setPortfolioName(e.target.value)}
                       className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-md"
                     />
-                    {file && (
-                      <p className="text-xs text-green-500 mt-2">
-                        File: {file.name} selected
-                      </p>
-                    )}
                   </div>
-                )}
-              </>
-            )}
-            {tabSelected && (
-              <div className="flex justify-center gap-4 mt-4">
-                <button
+                  <div className="w-full">
+                    <DropdownMenu modal={false}>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="dropdownButton2"
+                          className="flex flex-row items-center w-full"
+                        >
+                          {`Currency in ${selectedCurrency}`} <ChevronDown />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="overflow-y-scroll max-h-64 w-80 z-50 bg-white text-black p-4 rounded-lg shadow-lg">
+                        <DropdownMenuSeparator />
+                        <DropdownMenuRadioGroup
+                          value={selectedCurrency}
+                          onValueChange={setSelectedCurrency}
+                        >
+                          {topCurrencies.map((currency) => (
+                            <DropdownMenuRadioItem
+                              className={`${
+                                selectedCurrency == currency.code
+                                  ? "bg-[var(--variant-4)] text-white"
+                                  : "   hover:border-[var(--variant-4)]"
+                              } cursor-pointer text-gray-600 p-2 ring-0 hover:ring-0 rounded-lg transition-colors duration-500`}
+                              key={currency.code}
+                              value={currency.code}
+                            >
+                              {currency.name} ({currency.symbol})
+                            </DropdownMenuRadioItem>
+                          ))}
+                        </DropdownMenuRadioGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              ) : (
+                <div className="w-full mt-4">
+                  <label className="text-gray-700   mb-2 text-sm font-medium flex items-center gap-2">
+                    <FileIcon className="w-5 h-5 text-gray-500" />
+                    Upload Excel File
+                  </label>
+                  <input
+                    type="file"
+                    accept=".xlsx, .xls"
+                    onChange={handleFileChange}
+                    className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-md"
+                  />
+                  {file && (
+                    <p className="text-xs text-green-500 mt-2">
+                      File: {file.name} selected
+                    </p>
+                  )}
+                </div>
+              )}
+            </>
+            {/* )} */}
+            {/* {tabSelected && ( */}
+            <div className="flex justify-center gap-4 mt-4">
+              {/* <button
                   onClick={() => {
                     setTabSelected(null);
                   }}
                   className="bg-[var(--variant-4)] text-white px-6 py-2 rounded-md cursor-pointer"
                 >
                   Back
-                </button>
-                <button
-                  onClick={() => {
-                    setPortfolios((prevPortfolio) => [
-                      ...prevPortfolio,
-                      {
-                        portfolioName,
-                        symbols: 2,
-                        costBasis: "$30,000",
-                        marketValue: "$31,000",
-                        dayChange: "+$500",
-                        unrealizedGainLoss: "+$1,000",
-                        realizedGainLoss: "+$500",
-                      },
-                    ]);
-                    setAddPortfolio(false);
-                    setPortfolioName("");
-                  }}
-                  className="bg-[var(--variant-4)] text-white px-6 py-2 rounded-md cursor-pointer"
-                >
-                  Proceed
-                </button>
-                <button
-                  onClick={() => {
-                    setAddPortfolio(false);
-                    setTabSelected(null);
-                  }}
-                  className="bg-gray-500 text-white px-6 py-2 rounded-md cursor-pointer  "
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
+                </button> */}
+              <button
+                onClick={() => {
+                  setPortfolios((prevPortfolio) => [
+                    ...prevPortfolio,
+                    {
+                      portfolioName,
+                      symbols: 2,
+                      costBasis: "$30,000",
+                      marketValue: "$31,000",
+                      dayChange: "+$500",
+                      unrealizedGainLoss: "+$1,000",
+                      realizedGainLoss: "+$500",
+                    },
+                  ]);
+                  setAddPortfolio(false);
+                  setPortfolioName("");
+                }}
+                className="bg-[var(--variant-4)] text-white px-6 py-2 rounded-md cursor-pointer"
+              >
+                Proceed
+              </button>
+              <button
+                onClick={() => {
+                  setAddPortfolio(false);
+                  setTabSelected(null);
+                }}
+                className="bg-gray-500 text-white px-6 py-2 rounded-md cursor-pointer  "
+              >
+                Cancel
+              </button>
+            </div>
+            {/* )} */}
           </div>
         </div>
       )}
