@@ -19,8 +19,16 @@ import {
 import { Button } from "../ui/button";
 import Link from "next/link";
 import CompanyDetails from "../Chart/CompanyDetailsSection";
+import { Download } from "lucide-react";
+import dynamic from 'next/dynamic';
+
+const FinancialStatementPDFDownload = dynamic(
+  () => import('@/components/FinancialsSection/DownloadPdf'),
+  { ssr: false }
+);
+// import FinancialStatementPDFDownload from "./DownloadPdf";
 const FinancialsSection = () => {
-  const [activeRange, setActiveRange] = React.useState("incomeStatement");
+  const [activeRange, setActiveRange] = React.useState<'incomeStatement' | 'balanceSheet' | 'cashFlowStatement'>("cashFlowStatement");
   const ranges = ["incomeStatement", "balanceSheet", "cashFlowStatement"];
   const [timeRange, setTimeRange] = React.useState("annual");
   const timeRanges = ["annual", "quarterly"];
@@ -64,7 +72,11 @@ const FinancialsSection = () => {
   ): s is BalanceSheet => {
     return (s as BalanceSheet).assets !== undefined;
   };
+const [mounted, setMounted] = React.useState(false);
 
+React.useEffect(() => {
+  setMounted(true);
+}, []);
   return (
     <div className="w-full flex flex-row items-start justify-between  px-8">
       <div className="w-9/12 flex flex-col items-center justify-start">
@@ -94,10 +106,36 @@ const FinancialsSection = () => {
             </div>
             <p className="text-sm">Currency in USD</p>
           </div>
+         
+           
           <div className="w-full flex flex-row items-center justify-between my-4">
             <p className="text-sm w-2/12">All in Thousand</p>
 
             <div className="flex flex-row justify-end w-10/12">
+             
+             <Button 
+                  variant="graphTab2"
+                  onClick={() => {}}
+                  className={`mr-1  text-[var(--variant-4)]   text-[var(--variant-4)] border-l-transparent border-b-transparent border-r-transparent border-t-transparent hover:border-[var(--variant-3)]   `}
+                >
+                {mounted   && <>
+             {activeRange=="incomeStatement" &&
+             <FinancialStatementPDFDownload
+    activeRange={"incomeStatement"}
+    financialStatement={financialStatement}
+  />}
+   {activeRange=="balanceSheet" &&
+             <FinancialStatementPDFDownload
+    activeRange={"balanceSheet"}
+    financialStatement={financialStatement}
+  />}
+   {activeRange=="cashFlowStatement" &&
+             <FinancialStatementPDFDownload
+    activeRange={"cashFlowStatement"}
+    financialStatement={financialStatement}
+  />}
+             </>}
+                </Button>
               {timeRanges.map((range) => (
                 <Button
                   key={range}

@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
+import { Button } from "../ui/button";
+
 import {
   Pagination,
   PaginationContent,
@@ -22,8 +24,14 @@ import { appleData1d, historicalData } from "@/global/constants";
 import { historicalDataType } from "@/types/types";
 import { InputSection } from "./InputSection";
 import CompanyDetails from "../Chart/CompanyDetailsSection";
+import HistoricalDataPDFDownload from "./DownloadHistoricalData";
 const HistoricalData = () => {
-  const [data, setData] = React.useState<historicalDataType | null>(
+  const [mounted, setMounted] = React.useState(false);
+  
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+  const [data, setData] = React.useState<historicalDataType >(
     historicalData
   );
   const [loading, setLoading] = React.useState(false);
@@ -64,7 +72,22 @@ const HistoricalData = () => {
           <div className="flex flex-row items-center justify-start  ">
             <InputSection />
           </div>
-          <div className="w-full flex flex-col items-center mt-2">
+          <div className="flex flex-row items-center w-full justify-end ">
+            <Button 
+                  variant="graphTab2"
+                  // onClick={() => {}}
+                  className={`mr-1  text-[var(--variant-4)]   text-[var(--variant-4)] border-l-transparent border-b-transparent border-r-transparent border-t-transparent hover:border-[var(--variant-3)]   `}
+                >
+            {mounted   && <>
+                          
+              
+                         <HistoricalDataPDFDownload 
+                historicalData={data}
+              /> 
+                         </>}
+                         </Button>
+          </div>
+          <div className="w-full flex flex-col items-center mt-1">
             <div className="flex flex-row items-center justify-end w-full">
               <p className="text-end text-sm my-2 mr-2">Currency in USD</p>
             </div>
