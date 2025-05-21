@@ -2,6 +2,13 @@
 import React from "react";
 import { appleData1d, financialStatement } from "@/global/constants";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+import {
   Table,
   TableBody,
   TableCaption,
@@ -19,7 +26,7 @@ import {
 import { Button } from "../ui/button";
 import Link from "next/link";
 import CompanyDetails from "../Chart/CompanyDetailsSection";
-import { Download } from "lucide-react";
+import { Download, DownloadCloud } from "lucide-react";
 import dynamic from 'next/dynamic';
 
 const FinancialStatementPDFDownload = dynamic(
@@ -112,13 +119,35 @@ React.useEffect(() => {
             <p className="text-sm w-2/12">All in Thousand</p>
 
             <div className="flex flex-row justify-end w-10/12">
-             
+              <Button 
+                  variant="graphTab2"
+                  onClick={() => {}}
+                  className={`cursor-pointer   text-[var(--variant-4)]   text-[var(--variant-4)] border-l-transparent border-b-transparent border-r-transparent border-t-transparent hover:border-[var(--variant-3)]   `}
+                >
+           
+                <TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger className="cursor-pointer">  
+      <DownloadCloud className="cursor-pointer"/>
+              </TooltipTrigger>
+    <TooltipContent>
+      <p>{`Download ${activeRange} with ratios`}</p>
+    </TooltipContent>
+  </Tooltip>
+
+
+              </TooltipProvider> 
+                </Button>
              <Button 
                   variant="graphTab2"
                   onClick={() => {}}
                   className={`mr-1  text-[var(--variant-4)]   text-[var(--variant-4)] border-l-transparent border-b-transparent border-r-transparent border-t-transparent hover:border-[var(--variant-3)]   `}
                 >
-                {mounted   && <>
+                {mounted   &&
+                  <> 
+                <TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger>  
              {activeRange=="incomeStatement" &&
              <FinancialStatementPDFDownload
     activeRange={"incomeStatement"}
@@ -134,7 +163,14 @@ React.useEffect(() => {
     activeRange={"cashFlowStatement"}
     financialStatement={financialStatement}
   />}
-             </>}
+              </TooltipTrigger>
+    <TooltipContent>
+      <p>{`Download ${activeRange}`}</p>
+    </TooltipContent>
+  </Tooltip>
+
+
+              </TooltipProvider></>}
                 </Button>
               {timeRanges.map((range) => (
                 <Button

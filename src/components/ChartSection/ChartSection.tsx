@@ -24,6 +24,7 @@ import {
 } from "@radix-ui/react-popover";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
+import FinancialRatiosChart from "./FinantialRatios";
 
 const timeFrames = ["1min", "5min", "15min", "30min", "1hour", "4hour", "1day"];
 export const technicalIndicators = [
@@ -392,6 +393,7 @@ const ChartSection = () => {
             </div>
           </div>
           <ChartComponent />
+          <FinancialRatiosChart/>
         </div>
       </div>
       <div className="w-3/12 flex flex-col items-center p-4 text-white">

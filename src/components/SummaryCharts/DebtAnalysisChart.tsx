@@ -16,40 +16,53 @@ const DebtAnalysis = () => {
     ]),
   ];
 
-  const option = {
-    color: ["#e74c3c", "#2ecc71"],
-    legend: {
-      bottom: 10,
-      textStyle: { color: "#333" },
+ const option = {
+  color: ["#e74c3c", "#2ecc71"],
+  legend: {
+    bottom: 10,
+    textStyle: { color: "#ffffff" }, // 👈 white legend text
+  },
+  tooltip: {
+    trigger: "axis",
+     axisPointer: { type: "shadow" },
+      },
+  dataset: {
+    source: chartData,
+  },
+  xAxis: {
+    type: "category",
+    axisLabel: { color: "#ffffff" }, // 👈 white x-axis labels
+    axisLine: {
+      lineStyle: { color: "#ffffff" }, // optional: white axis line
     },
-    tooltip: {
-      trigger: "axis",
-      axisPointer: { type: "shadow" },
+  },
+  yAxis: {
+    type: "value",
+    axisLabel: {
+      formatter: "{value} B",
+      color: "#ffffff", // 👈 white y-axis labels
     },
-    dataset: {
-      source: chartData,
+    axisLine: {
+      lineStyle: { color: "#ffffff" }, // optional: white axis line
     },
-    xAxis: {
-      type: "category",
-      axisLabel: { color: "#333" },
-    },
-    yAxis: {
-      type: "value",
-      axisLabel: {
-        formatter: "{value} B",
-        color: "#333",
+    splitLine: {
+      lineStyle: {
+        color: "#2c3e50", // optional: for grid line style
+        type: "dashed",
       },
     },
-    series: [
-      { type: "bar", name: "Total Debt" },
-      { type: "bar", name: "Cash & Cash Equivalents" },
-    ],
-    backgroundColor: "white",
-  };
+  },
+  series: [
+    { type: "bar", name: "Total Debt" },
+    { type: "bar", name: "Cash & Cash Equivalents" },
+  ],
+  backgroundColor: "#13131f",
+};
+
 
   return (
     <div className="w-full col-span-2 flex flex-col items-center">
-      <div className="bg-white w-full rounded-2xl p-4 flex flex-col items-center">
+      <div className="bg-[#13131f] w-full rounded-2xl p-4 flex flex-col items-center">
         <ReactECharts
           option={option}
           style={{ height: "60vh", width: "100%" }}

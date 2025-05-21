@@ -25,6 +25,8 @@ import { historicalDataType } from "@/types/types";
 import { InputSection } from "./InputSection";
 import CompanyDetails from "../Chart/CompanyDetailsSection";
 import HistoricalDataPDFDownload from "./DownloadHistoricalData";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { DownloadCloud } from "lucide-react";
 const HistoricalData = () => {
   const [mounted, setMounted] = React.useState(false);
   
@@ -74,16 +76,46 @@ const HistoricalData = () => {
           </div>
           <div className="flex flex-row items-center w-full justify-end ">
             <Button 
+                              variant="graphTab2"
+                              onClick={() => {}}
+                              className={`cursor-pointer   text-[var(--variant-4)]   text-[var(--variant-4)] border-l-transparent border-b-transparent border-r-transparent border-t-transparent hover:border-[var(--variant-3)]   `}
+                            >
+                       
+                            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="cursor-pointer">  
+                  <DownloadCloud className="cursor-pointer"/>
+                          </TooltipTrigger>
+                <TooltipContent>
+                  <p>{`Download Historical Data with ratios`}</p>
+                </TooltipContent>
+              </Tooltip>
+            
+            
+                          </TooltipProvider> 
+                            </Button>
+            <Button 
                   variant="graphTab2"
                   // onClick={() => {}}
                   className={`mr-1  text-[var(--variant-4)]   text-[var(--variant-4)] border-l-transparent border-b-transparent border-r-transparent border-t-transparent hover:border-[var(--variant-3)]   `}
                 >
             {mounted   && <>
                           
-              
-                         <HistoricalDataPDFDownload 
+               <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>  
+                          <HistoricalDataPDFDownload 
                 historicalData={data}
               /> 
+                            </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{`Download Historical Data`}</p>
+                  </TooltipContent>
+                </Tooltip>
+              
+              
+                            </TooltipProvider>
+                       
                          </>}
                          </Button>
           </div>

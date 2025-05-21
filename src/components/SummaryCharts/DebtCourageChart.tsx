@@ -11,7 +11,7 @@ const DebtCourageChart = () => {
     color: ["#0c969C", "#0A7075"],
     legend: {
       bottom: 10,
-      textStyle: { color: "#333" },
+      textStyle: { color: "#ffffff" },
     },
     tooltip: {
       trigger: "axis",
@@ -60,11 +60,17 @@ const DebtCourageChart = () => {
     },
     xAxis: {
       type: "category",
-      axisLabel: { color: "#333" },
+      axisLabel: { color: "#ffffff" }, // 👈 white x-axis labels
+    axisLine: {
+      lineStyle: { color: "#ffffff" }, // optional: white axis line
+    }, 
     },
     yAxis: {
       type: "value",
-      axisLabel: { formatter: "{value} B", color: "#333" },
+      axisLine: {
+      lineStyle: { color: "#ffffff" }, // optional: white axis line
+    },
+      axisLabel: { formatter: "{value} B", color: "#ffffff" },
     },
     series: [
       {
@@ -74,12 +80,12 @@ const DebtCourageChart = () => {
         type: "bar",
       },
     ],
-    backgroundColor: "white",
+    backgroundColor: "#13131f",
   };
 
   return (
     <div className="w-full col-span-2 flex flex-col items-center">
-      <div className="bg-white w-full rounded-2xl p-4 flex flex-col items-center">
+      <div className="bg-[#13131f] w-full rounded-2xl p-4 flex flex-col items-center">
         <ReactECharts
           option={option}
           style={{ height: "60vh", width: "100%" }}

@@ -18,7 +18,7 @@ const OwnershipStructure = () => {
     legend: {
       orient: "vertical",
       left: "left",
-      textStyle: { color: "#333" },
+      textStyle: { color: "#ffffff" }, 
     },
     series: [
       {
@@ -48,12 +48,12 @@ const OwnershipStructure = () => {
         },
       },
     ],
-    backgroundColor: "white",
+    backgroundColor: "#13131f",
   };
 
   return (
     <div className="w-full col-span-2 flex flex-col items-center">
-      <div className="bg-white w-full rounded-2xl p-4 flex flex-col items-center">
+      <div className="bg-[#13131f] w-full rounded-2xl p-4 flex flex-col items-center">
         <ReactECharts
           option={option}
           style={{ height: "60vh", width: "100%" }}
