@@ -83,17 +83,18 @@ const ChartComponent = () => {
           borderColor0: "#4ade80",
         },
       },
-      {
-        name: "EMA",
-        type: "line",
-        data: emaData,
-        smooth: true,
-        showSymbol: false,
-        lineStyle: {
-          width: 1.5,
-          color: "#3b82f6",
-        },
-      },
+      // {
+      //   name: "EMA",
+        
+      //   type: "line",
+      //   data: emaData,
+      //   smooth: true,
+      //   showSymbol: false,
+      //   lineStyle: {
+      //     width: 1.5,
+      //     color: "#3b82f6",
+      //   },
+      // },
     ],
     backgroundColor: "#13131f",
   };
