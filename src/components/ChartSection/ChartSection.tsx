@@ -25,6 +25,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import FinancialRatiosChart from "./FinantialRatios";
+import SingleStockRadarChart from "./SingleStockRadarChart";
 
 const timeFrames = ["1min", "5min", "15min", "30min", "1hour", "4hour", "1day"];
 export const technicalIndicators = [
@@ -393,6 +394,7 @@ const ChartSection = () => {
             </div>
           </div>
           <ChartComponent />
+          <SingleStockRadarChart/>
           <FinancialRatiosChart/>
         </div>
       </div>

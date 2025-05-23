@@ -497,22 +497,35 @@ export type EPSProjectionData = {
 };
 
 export type Stock = {
-    symbol: string;
-    companyName: string;
-    marketCap: number;
-    sector: string | null;
-    industry: string | null;
-    beta: number;
-    price: number;
-    lastAnnualDividend: number;
-    volume: number;
-    exchange: string;
-    exchangeShortName: string;
-    country: string;
-    isEtf: boolean;
-    isFund: boolean;
-    isActivelyTrading: boolean;
+  symbol: string;
+  companyName: string;
+  marketCap: number;
+  sector: string | null;
+  industry: string | null;
+  beta: number;
+  price: number;
+  lastAnnualDividend: number;
+  volume: number;
+  exchange: string;
+  exchangeShortName: string;
+  country: string;
+  isEtf: boolean;
+  isFund: boolean;
+  isActivelyTrading: boolean;
+
+  // Newly added metrics
+  grossProfitMargin: string;   // e.g., "46%"
+  netProfitMargin: string;     // e.g., "24%"
+  ROE: string;                 // e.g., "18%"
+  deRatio: number;             // Debt-to-Equity Ratio
+  interestExpense: string;     // e.g., "$5B"
+  costOfDebt: string;          // e.g., "5%"
+  fcffEbit: string;            // e.g., "$65B"
+  eps: string;                 // e.g., "$5.25"
+  epsGrowth: string;           // e.g., "12%"
+  wacc: string;                // e.g., "8.7%"
 };
+
 
 export type StockScreeningResponse = {
     filtered_data: {

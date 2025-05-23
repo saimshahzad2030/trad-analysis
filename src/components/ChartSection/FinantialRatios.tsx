@@ -253,7 +253,7 @@ const groupedRatios:RatioGroup[] = [
 const FinancialRatiosTables = () => {
   return (
         <div className="flex flex-col w-full items-center p-6 rounded-xl  mt-8 bg-[#0f0e17]">
-        <h1 className="text-center text-4xl font-bold mb-2 ">Key Financial Ratios</h1>
+        <h1 className="text-center text-4xl font-bold mb-2 ">Key Financial Ratios (AAPL)</h1>
     <div className="  text-white grid grid-cols-2  w-full">
       {groupedRatios.map((group, idx) => {
         const keys = Object.keys(group.data) as string[];

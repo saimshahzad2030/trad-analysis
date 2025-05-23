@@ -10,6 +10,12 @@ import {
 import { Stock, StockScreeningResponse } from "@/types/types";
 import { stockScreening } from "@/global/constants";
 import Link from "next/link";
+import RadarChartSS from "./RadarChartSS";
+import LineChartROC from "./LineChartROC";
+import LineChartEPSGrowth from "./LineChartEpsGrowth";
+import LineChartRevenueGrowth from "./LineChartRevenueGrowth";
+import LineChartWACC from "./LineChartWACC";
+import LineChartGrossProfit from "./LineChartGrossProfit";
 
 const StockScreeningTable = () => {
   const stocks: Stock[] = stockScreening.filtered_data.result;
@@ -30,10 +36,16 @@ const StockScreeningTable = () => {
             <TableHead>Beta</TableHead>
             <TableHead>Exchange</TableHead>
             <TableHead>Country</TableHead>
+            <TableHead>Gross Profit Margin</TableHead>
+            <TableHead>Net Profit Margin</TableHead>
+            <TableHead>ROE</TableHead>
+            <TableHead>D/e Ratio</TableHead>
+            <TableHead>Interest Expense</TableHead>
+
           </TableRow>
         </TableHeader>
         <TableBody>
-          {stocks.map((stock) => (
+          {stocks.slice(0,10).map((stock) => (
             <TableRow key={stock.symbol}>
               <TableCell>
                 <Link className="underline" href={"/"}>
@@ -50,10 +62,29 @@ const StockScreeningTable = () => {
               <TableCell>{stock.beta}</TableCell>
               <TableCell>{stock.exchangeShortName}</TableCell>
               <TableCell>{stock.country}</TableCell>
+                <TableCell>{stock.grossProfitMargin}</TableCell>
+            <TableCell>{stock.netProfitMargin}</TableCell>
+            <TableCell>{stock.ROE}</TableCell>
+            <TableCell>{stock.deRatio}</TableCell>
+            <TableCell>{stock.interestExpense}</TableCell>
+
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <div className="flex flex-col items-center w-full">
+        <h1 className="text-white font-bold text-4xl mt-12"> Visual Comparison</h1>
+        <p className="text-sm text-gray-400">Below is the comparison of the ratios of top 5 stock u searched</p>
+      </div>
+      <div className="flex grid grid-cols-2 w-full gap-4  pt-8 pb-20">
+
+      <RadarChartSS/> 
+        <LineChartROC/> 
+      <LineChartEPSGrowth/>
+      <LineChartRevenueGrowth/>
+      <LineChartWACC/>
+      <LineChartGrossProfit/>
+      </div>
     </div>
   );
 };
