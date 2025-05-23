@@ -108,7 +108,7 @@ const RadarChartSS = () => {
     ],
   };
 
-  return <div className='col-span-2 bg-[#0d0d14]'>
+  return <div className='col-span-2'>
     <ReactECharts option={option} style={{ height: '500px' }} />
   </div>;
 };
