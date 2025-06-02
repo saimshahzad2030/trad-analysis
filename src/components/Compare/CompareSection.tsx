@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/table";
 import { comparisionMockApi } from "@/global/constants";
 import { useRouter } from "next/navigation";
+import RadarCharts from "./RadarCharts";
 const excludedKeys = [
   "name",
   "symbol",
@@ -464,6 +465,7 @@ const CompareSection = () => {
             );
           })}
         </Accordion>
+        <RadarCharts/>
       </div>
 
       {openModal && (
